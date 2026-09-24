@@ -10,7 +10,7 @@ import base64
 # ============================================================
 
 st.set_page_config(
-    page_title="A Very Important Investigation 💌",
+    page_title="A Question for Shakhi",
     page_icon="💗",
     layout="centered",
     initial_sidebar_state="collapsed"
@@ -32,7 +32,6 @@ def image_to_base64(path):
         ".png": "image/png",
         ".webp": "image/webp",
         ".gif": "image/gif"
-    
     }
 
     mime_type = mime_types.get(path.suffix.lower())
@@ -54,7 +53,10 @@ def image_to_base64(path):
 BACKGROUND_PATH = Path("assets/background.jpg")
 ADI_PATH = Path("assets/adi.jpg")
 GRAPH_PATH = Path("assets/graph.gif")
-CONGRATULATIONS_PATH = Path("assets/congratulations.jpg")
+CONGRATULATIONS_PATH = Path("assets/congratulations.png")
+
+QUESTION1_PATH = Path("assets/question1.jpg")
+QUESTION6_PATH = Path("assets/question6.jpg")
 
 
 # ============================================================
@@ -65,6 +67,9 @@ background_data = image_to_base64(BACKGROUND_PATH)
 adi_data = image_to_base64(ADI_PATH)
 graph_data = image_to_base64(GRAPH_PATH)
 congratulations_data = image_to_base64(CONGRATULATIONS_PATH)
+
+question1_data = image_to_base64(QUESTION1_PATH)
+question6_data = image_to_base64(QUESTION6_PATH)
 
 
 # ============================================================
@@ -445,6 +450,47 @@ st.html(
 
 
         /* ====================================================
+           QUESTION IMAGE
+           ==================================================== */
+
+        .question-image-wrapper {
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            margin:
+                5px auto 22px auto;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+        }
+
+
+        .question-image-wrapper img {
+
+            width: 100%;
+
+            max-width: 500px;
+
+            max-height: 360px;
+
+            object-fit: contain;
+
+            display: block;
+
+            border-radius: 16px;
+
+        }
+
+
+        /* ====================================================
            RADIO OPTIONS
            ==================================================== */
 
@@ -561,6 +607,35 @@ st.html(
         [data-baseweb="radio"] {
 
             display: none !important;
+
+        }
+
+
+        /* ====================================================
+           SLIDER
+           ==================================================== */
+
+        div[data-testid="stSlider"] {
+
+            width: 100%;
+
+            padding:
+                5px 5px 0 5px;
+
+        }
+
+
+        div[data-testid="stSlider"] label {
+
+            display: none !important;
+
+        }
+
+
+        div[data-testid="stSlider"]
+        [data-baseweb="slider"] {
+
+            padding-top: 12px;
 
         }
 
@@ -1016,6 +1091,13 @@ st.html(
             }
 
 
+            .question-image-wrapper img {
+
+                max-height: 300px;
+
+            }
+
+
             .results-title {
 
                 font-size: 35px;
@@ -1086,79 +1168,81 @@ QUESTIONS = [
 
     {
         "question":
-            "Who is more likely to fall asleep during a video call?",
+            "What is the original color of this maxi?",
+
+        "image":
+            "question1",
 
         "options": [
-            "Me",
-            "You",
-            "Both of us",
-            "Neither. We talk forever."
+            "Pink",
+            "Beige",
+            "Orange",
+            "White with Black Zebra stripes"
         ]
     },
 
 
     {
         "question":
-            "What should our ideal lazy Sunday involve?",
+            "You just came back home from an exhausting day and you are super hungry, What would you choose to have?",
 
         "options": [
-            "Food + movies",
-            "Going somewhere",
-            "Talking for hours",
-            "All of the above"
+            "2 Chicken Cutlets from Aporanhey",
+            "Bhorta and Tandoori Roti",
+            "Banana Bread",
+            "2 Banana Breads"
         ]
     },
 
 
     {
         "question":
-            "Who is more likely to start an unnecessary argument?",
+            "Which unusual object is visible in the National Flag of Mozambique (You should Remember)?",
 
         "options": [
-            "Me",
-            "You",
-            "Both equally",
-            "We would never argue"
+            "Kulcha",
+            "AK-47",
+            "Cigarette",
+            "Machete"
         ]
     },
 
 
     {
         "question":
-            "What is the most important ingredient in a good relationship?",
+            "Which movie/show are we watching next?",
 
         "options": [
-            "Communication",
-            "Humour",
-            "Food",
-            "Putting up with each other's nonsense"
+            "The Matrix",
+            "Matrix 2",
+            "Matrix 3",
+            "Meri Beti Sunny Leone Banna Chahti Hai"
         ]
     },
 
 
     {
         "question":
-            "If we had an entire day together, what would probably happen?",
+            "What do you think is my favourite National Flag?",
 
         "options": [
-            "We would talk all day",
-            "We would eat everything",
-            "We would go somewhere random",
-            "Somehow all three"
+            "Isle of Man",
+            "Brazil",
+            "Barbados",
+            "India (Aami Bharotiyo)"
         ]
     },
 
 
     {
         "question":
-            "Final question. Are we suspiciously compatible?",
+            "Rate the Quality of this joke",
 
-        "options": [
-            "Obviously ❤️",
-            "Unfortunately, yes",
-            "The evidence is overwhelming",
-            "I need legal representation"
-        ]
+        "image":
+            "question6",
+
+        "slider": True
+
     }
 
 ]
@@ -1433,7 +1517,7 @@ def home_page():
 
 
             <div class="landing-hint">
-                hover over the picture
+                Click on the picture below
             </div>
 
 
@@ -1449,19 +1533,21 @@ def home_page():
 
                     <div>
 
-                        Okay, technically this is
-                        just a picture of me.
+                        Hiii Babe! I am so happy that we've come this far. 
 
                         <br><br>
 
-                        But apparently I have something
-                        very important to ask you.
+                        And there is something
+                        I've been wanting to ask you for
+                        quite some time. 
 
                         <br><br>
 
-                        So please hover over this picture,
-                        read the extremely important message,
-                        and then continue.
+                        But before I do that, I also want you to be sure.
+                        So I will let this extremely sophisticated algorithm (made by yours truly with zero bias I promise)
+                        to analyse if we are actually meant to be together. 
+                        Please answer carefully and honestly or it might end up 
+                        being super sad for me :(((
 
                     </div>
 
@@ -1551,6 +1637,25 @@ def quiz_page():
     )
 
 
+    # ========================================================
+    # QUESTION IMAGE
+    # ========================================================
+
+    image_data = None
+
+    if question.get("image") == "question1":
+
+        image_data = question1_data
+
+    elif question.get("image") == "question6":
+
+        image_data = question6_data
+
+
+    # ========================================================
+    # QUESTION CARD
+    # ========================================================
+
     quiz_html = """
     <div class="quiz-container">
 
@@ -1572,6 +1677,9 @@ def quiz_page():
                 of TOTAL_PLACEHOLDER
 
             </div>
+
+
+            IMAGE_PLACEHOLDER
 
 
             <div class="question-text">
@@ -1610,34 +1718,92 @@ def quiz_page():
     )
 
 
-    st.html(quiz_html)
+    if image_data:
 
+        image_html = """
+        <div class="question-image-wrapper">
 
-    previous_answer = (
-        st.session_state.answers.get(index)
-    )
+            <img
+                src="QUESTION_IMAGE_PLACEHOLDER"
+                alt="Question image"
+            >
 
+        </div>
+        """
 
-    if previous_answer in question["options"]:
+        image_html = image_html.replace(
+            "QUESTION_IMAGE_PLACEHOLDER",
+            image_data
+        )
 
-        default_index = (
-            question["options"].index(
-                previous_answer
-            )
+        quiz_html = quiz_html.replace(
+            "IMAGE_PLACEHOLDER",
+            image_html
         )
 
     else:
 
-        default_index = None
+        quiz_html = quiz_html.replace(
+            "IMAGE_PLACEHOLDER",
+            ""
+        )
 
 
-    answer = st.radio(
-        "Answer",
-        question["options"],
-        index=default_index,
-        key=f"question_{index}",
-        label_visibility="collapsed"
-    )
+    st.html(quiz_html)
+
+
+    # ========================================================
+    # SLIDER QUESTION
+    # ========================================================
+
+    if question.get("slider"):
+
+        previous_answer = (
+            st.session_state.answers.get(index, 5)
+        )
+
+
+        answer = st.slider(
+            "Rate it",
+            min_value=1,
+            max_value=10,
+            value=previous_answer,
+            step=1,
+            key=f"slider_{index}"
+        )
+
+
+    # ========================================================
+    # NORMAL MCQ QUESTION
+    # ========================================================
+
+    else:
+
+        previous_answer = (
+            st.session_state.answers.get(index)
+        )
+
+
+        if previous_answer in question["options"]:
+
+            default_index = (
+                question["options"].index(
+                    previous_answer
+                )
+            )
+
+        else:
+
+            default_index = None
+
+
+        answer = st.radio(
+            "Answer",
+            question["options"],
+            index=default_index,
+            key=f"question_{index}",
+            label_visibility="collapsed"
+        )
 
 
     st.write("")
@@ -2399,7 +2565,7 @@ def final_page():
 
             <div class="final-title">
 
-                Congratulations
+                Congratulations! 
 
             </div>
 
